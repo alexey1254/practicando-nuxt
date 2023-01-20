@@ -7,17 +7,20 @@
     class="form-text" 
     type="text" 
     v-model="buscarPokemon"
+    @keyup="imprimirPokemon()"
     >
     
 </template>
 
 <script setup>
-
+const buscarPokemon = ref("")
 const pokemon = {
     name:"", // forms.name
     id:"", //id
     image: "", //sprites.official-artwork.front_default
     image_shiny:"" // sprites.official-artwork.front_shiny
 }
-
+function imprimirPokemon() {
+    console.log(buscarPokemon._value)
+}
 </script>
