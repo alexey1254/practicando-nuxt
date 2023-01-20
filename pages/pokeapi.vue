@@ -2,25 +2,42 @@
     <h1>Bienvenido a la pokeapi!</h1>
 
     <h3>Busca tu pokemon</h3>
-    <p>Pokemon {{ buscarPokemon }}</p> <!--Aquí no me actualiza, no puede leer las propiedades de "null"-->
+    <div class="card text-center mt-3 mb-3 " style="width: 100%;"> <!--Añadir que se vea una vez buscado el pokemon e implementar texto e imagen, id y nombre-->
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+        <p class="card-text">Texto pokemon</p>
+        </div>
+    </div>
     <input 
-    class="form-text" 
+    class="form-text mt-3" 
     type="text" 
-    v-model="buscarPokemon"
-    @keyup="imprimirPokemon()"
+    v-model="inputUsr"
+    @keyup.enter="imprimirPokemon()"
     >
-    
 </template>
 
 <script setup>
-const buscarPokemon = ref("")
-const pokemon = {
-    name:"", // forms.name
-    id:"", //id
-    image: "", //sprites.official-artwork.front_default
-    image_shiny:"" // sprites.official-artwork.front_shiny
+
+const inputUsr = ref("")
+
+
+async function searchPokemon() {
+try {
+    let data = useFetch(`https://pokeapi.co/api/v2/pokemon/${inputUsr.value}`, {
+        pick: ["id", "name", "sprites"]
+    })
+    return data;
+} catch (error) {
+    console.log("Error funcion searchPokemon() -> ")
 }
-function imprimirPokemon() {
-    console.log(buscarPokemon._value)
+}
+
+async function imprimirPokemon() { // Implementar texto del pokemon
+    let datos = await searchPokemon();
+    this.pokemon.name = datos.data.value.name;
+    this.pokemon.id = datos.data.value.id;
+    this.pokemon.imagen = datos.data.value.sprites.front_default;
+    
+
 }
 </script>
