@@ -2,7 +2,7 @@
     <h1>Bienvenido a la pokeapi!</h1>
 
     <h3>Busca tu pokemon</h3>
-    <p>Pokemon {{ buscarPokemon }}</p>
+    <p>Pokemon {{ buscarPokemon }}</p> <!--Aquí no me actualiza, no puede leer las propiedades de "null"-->
     <input 
     class="form-text" 
     type="text" 
